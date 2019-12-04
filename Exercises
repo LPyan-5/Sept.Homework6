@@ -1,0 +1,92 @@
+//Exercise 1
+Write the delay function using Promise.
+
+function delay(ms){
+    return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+delay(2000).then(result=>alert(result));
+
+
+//Exercise 2
+let urls = [
+‘https://validurl’,
+‘https://validurl’,
+‘https://invalidurl’
+];
+Promise.all(urls.map(url =&gt; fetch(url)))
+.then(responses =&gt; {
+for(let response of responses) {
+alert(response);
+}
+});
+If any of requests fails, the Promise.all rejects with the error, and we lose the results of
+all the other requests.
+Modify the code so that the array responses would include the response objects for
+successful fetches and error objects for failed ones.
+
+
+let urls = [
+    '/validurl/',
+    'https://validurl',
+    'https://invalidurl'
+    ];
+Promise.all(urls.map(url => new Promise(resolve => fetch(url).then(result => resolve(result),error => resolve(error)))
+                )
+) .then(responses => {
+        for(let response of responses) {
+        alert(response);
+        }
+    });
+    
+    
+//Exercise 3
+Rewrite the code using async/await instead of .then/catch.
+
+//regular function
+function loadJson(url) {
+return fetch(url)
+.then(response =&gt; {
+if (response.status == 200) {
+return response.json();
+} else {
+throw new Error(response.status);
+}
+})
+}
+loadJson(&#39;no-such-user.json&#39;).catch(alert);
+
+//async function
+async function loadJson(url) {
+    let response = await fetch(url);
+    if (response.status === 200) {
+                return response.json();
+        } else {
+
+            throw new Error(response.status);
+        }
+            
+}
+loadJson('no-such-user.json').catch(alert);
+
+
+//Exercise 4
+We have a “regular” function f. How to call async function wait from it and use its result?
+async function wait() {
+await new Promise(resolve =&gt; setTimeout(resolve, 1000));
+return 10;
+}
+function f() {
+//your code
+}
+
+
+async function wait() {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return 10;
+}
+function f() {
+        wait().then(result => alert(result));
+}
+
+f();

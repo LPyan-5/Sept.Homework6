@@ -14,8 +14,8 @@ let urls = [
 ‘https://validurl’,
 ‘https://invalidurl’
 ];
-Promise.all(urls.map(url =&gt; fetch(url)))
-.then(responses =&gt; {
+Promise.all(urls.map(url => fetch(url)))
+.then(responses => {
 for(let response of responses) {
 alert(response);
 }
@@ -46,7 +46,7 @@ Rewrite the code using async/await instead of .then/catch.
 //regular function
 function loadJson(url) {
 return fetch(url)
-.then(response =&gt; {
+.then(response => {
 if (response.status == 200) {
 return response.json();
 } else {
@@ -54,7 +54,7 @@ throw new Error(response.status);
 }
 })
 }
-loadJson(&#39;no-such-user.json&#39;).catch(alert);
+loadJson('no-such-user.json').catch(alert);
 
 //async function
 async function loadJson(url) {
@@ -73,7 +73,7 @@ loadJson('no-such-user.json').catch(alert);
 //Exercise 4
 We have a “regular” function f. How to call async function wait from it and use its result?
 async function wait() {
-await new Promise(resolve =&gt; setTimeout(resolve, 1000));
+await new Promise(resolve => setTimeout(resolve, 1000));
 return 10;
 }
 function f() {
